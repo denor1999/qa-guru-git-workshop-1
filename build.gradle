@@ -1,5 +1,5 @@
-plugin {
-  id: 'java'
+plugins {
+    id 'java-library'
 }
 
 repositories {
@@ -7,10 +7,18 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation (
+            "com.codeborne:selenide:7.16.1",
+            "org.junit.jupiter:junit-jupiter:5.11.4")
+    testRuntimeOnly (
+            "org.junit.platform:junit-platform-launcher",
+            "org.slf4j:slf4j-simple:2.0.17")
 }
 
-tasks.test {
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+test {
     useJUnitPlatform()
 }
