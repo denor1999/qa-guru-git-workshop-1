@@ -42,4 +42,30 @@ public class LoginTests extends TestBase {
 
         $("[data-testid=error-message]").shouldHave(text("Wrong login or password"));
     }
+
+    @Test
+    void emptyLoginTest() {
+        open("/login.html");
+        $("[data-testid=password-input]").setValue("password1");
+        $("[data-testid=submit-button]").pressEnter();
+        $("[data-testid=error-message]").shouldHave(
+                text("Login is required (minimum 3 characters)"));
+    }
+
+    @Test
+    void emptyPasswordTest() {
+        open("/login.html");
+        $("[data-testid=login-input]").setValue("user1");
+        $("[data-testid=submit-button]").pressEnter();
+        $("[data-testid=error-message]").shouldHave(
+                text("Password is required (minimum 6 characters)"));
+    }
+
+    @Test
+    void emptyLoginAndPasswordTest() {
+        open("/login.html");
+        $("[data-testid=submit-button]").click();
+        $("[data-testid=error-message]").shouldHave(
+                text("Login and password are required (minimum 3 and 6 characters)"));
+    }
 }
